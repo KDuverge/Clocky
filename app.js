@@ -1,28 +1,23 @@
-console.log("CONNECTED...");
-function clock(){
-    let hourLogo = document.getElementById('hour');
-    let minuteLogo = document.getElementById('minute');
-    let secondLogo = document.getElementById('second');
-    
-    const fullDate = new Date();
-    let hour = fullDate.getHours();
-    let minute = fullDate.getMinutes();
-    let second = fullDate.getSeconds();
+var express = require("express");
+var path = require("path");
+var bodyParser = require("body-parser");
+var app = express();
+var port = process.env.port || 3000;
 
-    if(hour < 10){
-        hour = "0" + hour;
-    }
-    if(minute < 10){
-        minute = "0" + minute;
-    }
-    if(second < 10){
-        second = "0" + second;
-    }
-    hourLogo.innerHTML = hour + ":";
-    minuteLogo.innerHTML = minute + ":";
-    secondLogo.innerHTML = second;
-};
+var index = require("./routes/index");
 
-setInterval(clock, 1000);
+// View Engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
 
+// Set Static folder
+app.use(express.static(path.join(__dirname, 'public')));
 
+// Body Parser MW
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use('/', index);
+
+app.listen(port);
