@@ -2,7 +2,7 @@ var express = require("express");
 var path = require("path");
 var bodyParser = require("body-parser");
 var app = express();
-var port = process.env.port || 3000;
+var port = process.env.port;
 
 var index = require("./routes/index");
 
@@ -20,4 +20,4 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/', index);
 
-app.listen(port);
+app.listen(process.env.PORT, process.env.IP);
