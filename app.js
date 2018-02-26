@@ -20,4 +20,4 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/', index);
 
-app.listen(process.env.PORT, process.env.IP);
+app.listen(process.end.PORT, process.env.IP);
